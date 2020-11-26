@@ -1,8 +1,12 @@
 import { isEqual } from 'date-fns'
 import Appointment from '../models/Appointment'
 
-// Repositório responsável pelo CRUD completo dos Appointments
+interface CreateAppointmentDTO {
+  provider: string
+  date: Date
+}
 
+// Repositório responsável pelo CRUD completo dos Appointments
 class AppointmentsRepository {
   private appointments: Appointment[]
 
@@ -22,8 +26,10 @@ class AppointmentsRepository {
     return findAppointment || null
   }
 
-  public create(provider: string, date: Date): Appointment {
-    const appointment = new Appointment(provider, date)
+  // provider: string, date: Date
+
+  public create({ provider, date }: CreateAppointmentDTO): Appointment {
+    const appointment = new Appointment({ provider, date })
 
     this.appointments.push(appointment)
 
